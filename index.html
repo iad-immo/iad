@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calcul commissions IAD</title>
+
+<!-- FAVICONS -->
+<link rel="icon" type="image/svg+xml" href="https://iad-immo.github.io/iad/favicon.svg">
+<link rel="apple-touch-icon" href="https://iad-immo.github.io/iad/favicon.png">
+
 <style>
   :root{
     --iad-blue: #003A70;
@@ -134,14 +139,12 @@
   .adv-icon{
     font-size:22px;
     line-height:1;
-    /* bleu IAD via filtre pour emoji */
     filter: invert(20%) sepia(85%) saturate(600%) hue-rotate(160deg) brightness(95%) contrast(95%);
     width:34px;
     text-align:center;
   }
   .adv-text{ color:var(--iad-blue); font-size:15px; line-height:1.35; }
 
-  /* responsive tweaks */
   @media (max-width:420px){
     .wrapper{ padding:12px; }
     input[type="text"]{ font-size:18px; padding:10px; }
@@ -178,19 +181,17 @@
       <div id="totalPerçu" class="total-value"></div>
     </div>
 
-    <!-- Simulation Auto-Entreprise / Net après cotisations -->
+    <!-- Simulation Auto-Entreprise -->
     <div class="sim-card">
       <div class="sim-title">Simulation Auto-Entreprise<br>Net après cotisations 2026 (26,1%)</div>
       <div id="apresUrssaf" class="total-value"></div>
     </div>
 
-    
-    <!-- IMAGE ) -->
-    <!-- on laisse de l'espace aéré autour -->
+    <!-- IMAGE -->
     <img src="https://iad-immo.github.io/iad/equipe-iad.jpg" alt="Equipe IAD" class="mid-image">
     </div>
 
-    <!-- BLOC AVANTAGES (icônes bleu IAD conservées) -->
+    <!-- AVANTAGES -->
     <div class="adv-list">
 
       <div class="adv-card">
@@ -258,12 +259,11 @@
         <div class="adv-text"><strong>Formation :</strong> 25 ateliers et formations en présentiel + 40 heures en ligne (certifié LOI ALUR).</div>
       </div>
 
-    </div><!-- adv-list end -->
+    </div>
 
-  </div><!-- wrapper end -->
+  </div>
 
 <script>
-/* format input with thousands spaces, numeric keyboard on mobile */
 function formatInput(input){
   let digits = input.value.replace(/\D/g,'');
   if(digits === ''){ input.value=''; clearResults(); return; }
