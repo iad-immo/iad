@@ -5,124 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>iad - Bon de Visite</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <style>
-        :root {
-            --iad-blue: #00b4ec;
-            --iad-coral: #ea584a;
-            --iad-black: #1D1D1B;
-            --iad-grey: #f4f7f9;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--iad-grey);
-            margin: 0; padding: 15px;
-            display: flex; justify-content: center;
-        }
-
-        .app-card {
-            width: 100%; max-width: 480px;
-            background: white; border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            overflow: hidden; padding-bottom: 20px;
-        }
-
-        .agent-header {
-            background-color: #ffffff;
-            padding: 40px 20px 20px;
-            text-align: center;
-            border-bottom: 1px solid #f0f0f0;
-            position: relative;
-        }
-        
+        :root { --iad-blue: #00b4ec; --iad-coral: #ea584a; --iad-black: #1D1D1B; --iad-grey: #f4f7f9; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: var(--iad-grey); margin: 0; padding: 15px; display: flex; justify-content: center; }
+        .app-card { width: 100%; max-width: 480px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; padding-bottom: 20px; }
+        .agent-header { background-color: #ffffff; padding: 40px 20px 20px; text-align: center; border-bottom: 1px solid #f0f0f0; position: relative; }
         .logo-small { width: 60px; position: absolute; top: 20px; right: 20px; }
-
-        .agent-photo {
-            width: 120px; height: 120px;
-            border-radius: 15px;
-            object-fit: cover;
-            background-color: var(--iad-grey);
-            margin-bottom: 15px;
-            border: 1px solid #eee;
-        }
-
-        .welcome-text {
-            font-size: 1rem; color: var(--iad-black);
-            margin: 0; font-weight: 400;
-        }
-        
-        .agent-name-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800; font-style: italic;
-            color: var(--iad-blue);
-            font-size: 1.6rem;
-            letter-spacing: -0.025em;
-            margin: 5px 0 0 0;
-            text-transform: uppercase;
-        }
-
-        .agent-role {
-            font-size: 0.9rem; color: #666;
-            margin-top: 5px; font-weight: 500;
-        }
-
+        .agent-photo { width: 120px; height: 120px; border-radius: 15px; object-fit: cover; background-color: var(--iad-grey); margin-bottom: 15px; border: 1px solid #eee; }
+        .agent-name-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-style: italic; color: var(--iad-blue); font-size: 1.6rem; letter-spacing: -0.025em; margin: 5px 0 0 0; text-transform: uppercase; }
+        .agent-role { font-size: 0.9rem; color: #666; margin-top: 5px; font-weight: 500; }
         .selection-box { padding: 25px 20px 10px; text-align: center; }
-        .selection-box p { font-weight: 700; font-size: 0.95rem; }
         .btn-grid { display: flex; gap: 10px; margin-top: 15px; }
-        .btn-n {
-            flex: 1; height: 55px; border-radius: 12px;
-            border: 2px solid var(--iad-blue); background: white;
-            color: var(--iad-blue); font-weight: 800; font-size: 1.1rem;
-            cursor: pointer;
-        }
+        .btn-n { flex: 1; height: 55px; border-radius: 12px; border: 2px solid var(--iad-blue); background: white; color: var(--iad-blue); font-weight: 800; cursor: pointer; }
         .btn-n.active { background: var(--iad-blue); color: white; }
-
-        .visitor-card {
-            margin: 0 20px 20px; padding: 20px;
-            border: 1px solid #eef2f5; border-radius: 15px;
-            background-color: #fdfdfd;
-        }
-        .visitor-card h2 {
-            font-size: 0.95rem; color: var(--iad-coral);
-            text-transform: uppercase; margin: 0 0 20px 0;
-        }
-
+        .visitor-card { margin: 0 20px 20px; padding: 20px; border: 1px solid #eef2f5; border-radius: 15px; background-color: #fdfdfd; }
         .input-group { margin-bottom: 15px; }
         label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--iad-blue); text-transform: uppercase; margin-bottom: 6px; }
-        
-        input, select {
-            width: 100%; padding: 14px;
-            border: 1.5px solid #e0e0e0; border-radius: 10px;
-            font-size: 1rem; box-sizing: border-box; outline: none;
-        }
-
-        .sig-area {
-            width: 100%; height: 150px; background: #f9f9f9;
-            border: 1.5px dashed #ccc; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            color: #999; font-size: 0.85rem; margin-top: 5px;
-        }
-
-        .legal-box {
-            padding: 20px; background: #f0f7fa;
-            font-size: 0.72rem; line-height: 1.5; color: #333;
-            margin: 0 20px 20px; border-radius: 10px; text-align: justify;
-            border-left: 4px solid var(--iad-blue);
-        }
-
-        .btn-submit {
-            display: block; width: calc(100% - 40px); margin: 10px auto;
-            background: var(--iad-blue); color: white;
-            padding: 20px; border: none; border-radius: 12px;
-            font-weight: 800; text-transform: uppercase;
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0,180,236,0.3);
-        }
+        input, select { width: 100%; padding: 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-size: 1rem; box-sizing: border-box; outline: none; }
+        .sig-wrapper { background: #f9f9f9; border: 1.5px dashed #ccc; border-radius: 10px; margin-top: 5px; position: relative; }
+        canvas { width: 100%; height: 150px; touch-action: none; cursor: crosshair; }
+        .legal-box { padding: 20px; background: #f0f7fa; font-size: 0.72rem; line-height: 1.5; color: #333; margin: 0 20px 20px; border-radius: 10px; text-align: justify; border-left: 4px solid var(--iad-blue); }
+        .btn-submit { display: block; width: calc(100% - 40px); margin: 10px auto; background: var(--iad-blue); color: white; padding: 20px; border: none; border-radius: 12px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <form class="app-card" id="formVisite" onsubmit="event.preventDefault(); valider();">
-    
     <div class="agent-header">
         <img src="https://iad-immo.github.io/iad/logo-iad.png" class="logo-small">
         <div style="display: flex; justify-content: center;">
@@ -130,13 +39,13 @@
                 <img src="https://via.placeholder.com/120?text=PHOTO" style="width:100%; height:100%; border-radius:12px; object-fit:cover;">
             </div>
         </div>
-        <p class="welcome-text">Vous allez visiter un bien avec</p>
+        <p style="margin:0; font-size:1rem;">Vous allez visiter un bien avec</p>
         <h1 class="agent-name-title">Pierre Lannefranque</h1>
         <p class="agent-role">Conseiller Immobilier</p>
     </div>
 
     <div class="selection-box">
-        <p>Nombre de personnes pour la visite :</p>
+        <p style="font-weight:700;">Nombre de personnes pour la visite :</p>
         <div class="btn-grid">
             <button type="button" class="btn-n" onclick="generer(1)">1</button>
             <button type="button" class="btn-n" onclick="generer(2)">2</button>
@@ -147,52 +56,65 @@
 
     <div id="form-container" style="display:none;">
         <div id="v-list"></div>
-
         <div class="legal-box">
             <strong>ENGAGEMENT JURIDIQUE :</strong><br><br>
-            Je (nous) reconnais(sons) avoir demandé et reçu à l’instant du Prestataire de services, les noms, adresses et conditions de vente des affaires référencées. Je (nous) déclare(ons) que ces affaires m’ont été présentées en premier lieu par <strong>Pierre Lannefranque</strong>. En conséquence, je m'engage à ne traiter l'achat de l'une de ces affaires que par son seul intermédiaire, même après expiration du mandat qui lui a été confié. En cas de violation, je serai tenu à l’entière réparation du préjudice causé par mon éviction.
+            Je m'engage à ne traiter l'achat que par votre seul intermédiaire, <strong>Pierre Lannefranque</strong>. En cas de violation, je serai tenu à l’entière réparation du préjudice.
         </div>
-
         <button type="submit" class="btn-submit">Signer le Bon de Visite</button>
     </div>
 </form>
 
 <script>
+    let signaturePads = [];
+
     function generer(n) {
         document.querySelectorAll('.btn-n').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
         const list = document.getElementById('v-list');
         list.innerHTML = '';
+        signaturePads = [];
+
         for (let i = 1; i <= n; i++) {
-            list.innerHTML += `
-                <div class="visitor-card">
-                    <h2>Visiteur n°${i}</h2>
-                    <div class="input-group"><label>Nom</label><input type="text" required></div>
-                    <div class="input-group"><label>Prénom</label><input type="text" required></div>
-                    <div class="input-group"><label>Adresse Domicile</label><input type="text" required></div>
-                    <div class="input-group"><label>Téléphone</label><input type="tel" required></div>
-                    <div class="input-group"><label>E-mail</label><input type="email" required></div>
-                    <div class="input-group">
-                        <label>Pièce d'identité</label>
-                        <select required>
-                            <option value="">-- Sélectionner --</option>
-                            <option value="CNI">Carte Nationale d'Identité</option>
-                            <option value="PASSEPORT">Passeport</option>
-                            <option value="PERMIS">Permis de conduire</option>
-                        </select>
-                    </div>
-                    <div class="input-group"><label>N° de pièce</label><input type="text" required></div>
-                    <label>Signature tactile</label>
-                    <div class="sig-area">Signez ici</div>
-                </div>`;
+            const card = document.createElement('div');
+            card.className = 'visitor-card';
+            card.innerHTML = `
+                <h2 style="font-size:0.95rem; color:var(--iad-coral); text-transform:uppercase;">Visiteur n°${i}</h2>
+                <div class="input-group"><label>Nom</label><input type="text" required></div>
+                <div class="input-group"><label>Prénom</label><input type="text" required></div>
+                <div class="input-group"><label>Adresse Domicile</label><input type="text" required></div>
+                <div class="input-group"><label>Téléphone</label><input type="tel" required></div>
+                <div class="input-group"><label>E-mail</label><input type="email" required></div>
+                <div class="input-group">
+                    <label>Pièce d'identité</label>
+                    <select required><option value="">-- Sélectionner --</option><option value="CNI">CNI</option><option value="PASSEPORT">Passeport</option><option value="PERMIS">Permis</option></select>
+                </div>
+                <div class="input-group"><label>N° de pièce</label><input type="text" required></div>
+                <label>Signature tactile</label>
+                <div class="sig-wrapper"><canvas id="canvas-${i}"></canvas></div>
+                <button type="button" onclick="signaturePads[${i-1}].clear()" style="background:none; border:none; color:red; font-size:0.7rem; cursor:pointer;">Effacer</button>
+            `;
+            list.appendChild(card);
+            
+            const canvas = document.getElementById(`canvas-${i}`);
+            const pad = new SignaturePad(canvas);
+            signaturePads.push(pad);
+
+            // Ajustement taille canvas
+            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+            canvas.width = canvas.offsetWidth * ratio;
+            canvas.height = canvas.offsetHeight * ratio;
+            canvas.getContext("2d").scale(ratio, ratio);
         }
         document.getElementById('form-container').style.display = 'block';
     }
 
     function valider() {
-        alert("Merci ! Votre bon de visite est en cours d'envoi.");
+        if (signaturePads.some(pad => pad.isEmpty())) {
+            alert("Veuillez signer la zone obligatoire.");
+            return;
+        }
+        alert("Envoi en cours...");
     }
 </script>
-
 </body>
 </html>
