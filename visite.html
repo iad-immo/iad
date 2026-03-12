@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iad - Bon de Visite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --iad-blue: #00b4ec;
+            --iad-coral: #ea584a;
+            --iad-black: #1D1D1B;
+            --iad-grey: #f4f7f9;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--iad-grey);
+            margin: 0; padding: 15px;
+            display: flex; justify-content: center;
+        }
+
+        .app-card {
+            width: 100%; max-width: 480px;
+            background: white; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden; padding-bottom: 20px;
+        }
+
+        .agent-header {
+            background-color: #ffffff;
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+        }
+        
+        .logo-small { width: 60px; position: absolute; top: 20px; right: 20px; }
+
+        .agent-photo {
+            width: 120px; height: 120px;
+            border-radius: 15px;
+            object-fit: cover;
+            background-color: var(--iad-grey);
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .welcome-text {
+            font-size: 1rem; color: var(--iad-black);
+            margin: 0; font-weight: 400;
+        }
+        
+        .agent-name-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800; font-style: italic;
+            color: var(--iad-blue);
+            font-size: 1.6rem;
+            letter-spacing: -0.025em;
+            margin: 5px 0 0 0;
+            text-transform: uppercase;
+        }
+
+        .agent-role {
+            font-size: 0.9rem; color: #666;
+            margin-top: 5px; font-weight: 500;
+        }
+
+        .selection-box { padding: 25px 20px 10px; text-align: center; }
+        .selection-box p { font-weight: 700; font-size: 0.95rem
