@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface Agent - Pierre</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&display=swap" rel="stylesheet">
+    <style>
+        :root { --iad-blue: #00b4ec; --iad-black: #1D1D1B; --iad-grey: #f4f7f9; }
+        body { font-family: Arial, sans-serif; background: var(--iad-blue); padding: 20px; display: flex; justify-content: center; }
+        .setup-card { background: white; width: 100%; max-width: 400px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        h1 { font-family: 'Montserrat'; font-style: italic; color: var(--iad-blue); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 20px; }
+        label { display: block; font-size: 0.8rem; font-weight: bold; margin-bottom: 8px; color: #666; }
+        select, input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
+        .btn-start { width: 100%; background: var(--iad-black); color: white; padding: 20px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="setup-card">
+    <h1>Préparation Visite</h1>
+    
+    <label>SÉLECTIONNER LE MANDAT</label>
+    <select id="mandat">
+        <option value="123456">Mandat 123456 - Maison 5 p. - Melun</option>
+        <option value="789012">Mandat 789012 - Appart T3 - Lieusaint</option>
+        <option value="custom">Autre / Saisie manuelle...</option>
+    </select>
+
+    <label>CODE ACCÈS AGENT</label>
+    <input type="password" id="agentCode" placeholder="Ton code secret">
+
+    <button class="btn-start" onclick="lancerVisite()">Lancer la visite</button>
+</div>
+
+<script>
+    function lancerVisite() {
+        const code = document.getElementById('agentCode').value;
+        const mandat = document.getElementById('mandat').value;
+
+        if(code === "1234") { // Remplace 1234 par ton code
+            // On redirige vers le formulaire client en passant le numéro de mandat en mémoire
+            localStorage.setItem('mandat_en_cours', mandat);
+            window.location.href = "index.html"; 
+        } else {
+            alert("Code agent incorrect");
+        }
+    }
+</script>
+
+</body>
+</html>
