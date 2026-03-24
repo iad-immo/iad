@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcul commissions IAD</title>
+
+<!-- FAVICONS -->
+<link rel="icon" type="image/svg+xml" href="https://iad-immo.github.io/iad/favicon.svg">
+<link rel="apple-touch-icon" href="https://iad-immo.github.io/iad/favicon.png">
+
+<style>
+  :root{
+    --iad-blue: #003A70;
+    --iad-light:#e9f3ff;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background:#f5f9ff;
+    color:var(--iad-blue);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrapper{
+    max-width:480px;
+    margin:0 auto;
+    text-align:center;
+  }
+
+  /* LOGO + TITRE */
+  .logo{
+    width:150px;
+    display:block;
+    margin:12px auto 8px;
+  }
+  h1{
+    font-size:24px;
+    margin:6px 0 2px;
+    font-weight:700;
+    color:var(--iad-blue);
+  }
+  .subtitle{
+    font-size:14px;
+    color:var(--iad-blue);
+    margin-bottom:16px;
+    font-weight:400;
+  }
+
+  /* label input */
+  .label-input{
+    font-weight:700;
+    margin:8px 0;
+    color:var(--iad-blue);
+  }
+
+  /* input */
+  .input-wrap{
+    margin: 0 auto 18px;
+    width:100%;
+    max-width:420px;
+  }
+  input[type="text"]{
+    width:100%;
+    padding:12px 14px;
+    font-size:20px;
+    border-radius:12px;
+    border:2px solid #d7e6ff;
+    text-align:center;
+    background:white;
+    color:var(--iad-blue);
+  }
+
+  /* tranches */
+  .tranche-card{
+    background:var(--iad-light);
+    padding:12px;
+    border-radius:12px;
+    margin:10px 0;
+    text-align:left;
+  }
+  .tranche-card b{ color:var(--iad-blue); }
+
+  /* total perçu */
+  .card{
+    background:white;
+    padding:14px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    margin:18px 0;
+    text-align:center;
+  }
+  .total-title{
+    font-weight:700;
+    font-size:18px;
+    margin-bottom:6px;
+    color:var(--iad-blue);
+  }
+  .total-value{
+    font-size:18px;
+    font-weight:700;
+    color:var(--iad-blue);
+  }
+
+  /* image aérée */
+  .mid-image{
+    width:100%;
+    max-width:420px;
+    margin:30px auto;
+    display:block;
+    border-radius:12px;
+  }
+
+  /* sim net after */
+  .sim-card{
+    padding:16px;
+    border-radius:12px;
+    background:white;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom:20px;
+    text-align:center;
+  }
+  .sim-title{ font-weight:700; font-size:16px; color:var(--iad-blue); margin-bottom:8px; line-height:1.2; }
+
+  /* avantages */
+  .adv-list{ margin-top:10px; text-align:left; }
+  .adv-card{
+    background:white;
+    padding:12px;
+    border-radius:12px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.06);
+    margin-bottom:12px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .adv-icon{
+    font-size:22px;
+    line-height:1;
+    filter: invert(20%) sepia(85%) saturate(600%) hue-rotate(160deg) brightness(95%) contrast(95%);
+    width:34px;
+    text-align:center;
+  }
+  .adv-text{ color:var(--iad-blue); font-size:15px; line-height:1.35; }
+
+  @media (max-width:420px){
+    .wrapper{ padding:12px; }
+    input[type="text"]{ font-size:18px; padding:10px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- logo + titres -->
+    <img src="https://iad-immo.github.io/iad/logo-iad.png" alt="IAD" class="logo">
+    <h1>Calcul des commissions IAD</h1>
+    <div class="subtitle">+ simulation auto-entrepreneur (26,1% BNC 2026)</div>
+
+    <!-- label + input -->
+    <div class="label-input">Commissions HT facturées (€) :</div>
+    <div class="input-wrap">
+      <input
+        type="text"
+        id="commission"
+        placeholder="	Saisissez vos commissions"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        oninput="formatInput(this)"
+        aria-label="Commissions HT facturées">
+    </div>
+
+    <!-- tranches -->
+    <div id="tranches"></div>
+
+    <!-- total perçu HT -->
+    <div class="card" id="breakdown" style="display:none;">
+      <div class="total-title">Total perçu HT</div>
+      <div id="totalPerçu" class="total-value"></div>
+    </div>
+
+    <!-- Simulation Auto-Entreprise -->
+    <div class="sim-card">
+      <div class="sim-title">Simulation Auto-Entreprise<br>Net après cotisations 2026 (26,1%)</div>
+      <div id="apresUrssaf" class="total-value"></div>
+    </div>
+
+    <!-- IMAGE -->
+    <img src="https://iad-immo.github.io/iad/dev-ban.jpg" alt="Equipe IAD" class="mid-image">
+    </div>
+
+    <!-- AVANTAGES -->
+    <div class="adv-list">
+
+      <div class="adv-card">
+        <div class="adv-icon">💶</div>
+        <div class="adv-text"><strong>Rémunération :</strong> touchez jusqu’à 85% (et bien au-delà en ajoutant les récurrences) des honoraires.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🏆</div>
+        <div class="adv-text"><strong>Leader :</strong> réseau leader en France en 2024 avec 14 000 conseillers et des performances exceptionnelles : + de 50 000 transactions, + de 80 000 annonces et + de 180 000 avis positifs.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🏢</div>
+        <div class="adv-text"><strong>Coworking :</strong> possibilité de coworking dans près de 250 pôles de formation.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🕊️</div>
+        <div class="adv-text"><strong>Liberté :</strong> pas d’horaire, pas de permanence, pas de hiérarchie, pas de lieu ni de secteur imposé.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🌍</div>
+        <div class="adv-text"><strong>International :</strong> possibilité de développer son activité dans 8 pays (marché de 4 Millions de transactions) et soyez visibles auprès de milliers d’acquéreurs étrangers grâce à la diffusion de 90 000 annonces sur iad overseas.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🤝</div>
+        <div class="adv-text"><strong>Prescription :</strong> + d’1 million d’apporteurs d’affaires grâce à l’application propertips.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🛠️</div>
+        <div class="adv-text"><strong>Services :</strong> assistance dédiée 6/7 de 9h à 17h, une gestionnaire, facturation en 24h, formation gratuite, service juridique, ...</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🤝🎉</div>
+        <div class="adv-text"><strong>Cohésion :</strong> conventions, séminaires, réunions d’équipes, récompense des top performers, ...</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">📲</div>
+        <div class="adv-text"><strong>Outils :</strong> large diffusion des annonces (30 photos - vidéo - visite virtuelle), avis de valeur, pige, Playiad un outil évolutif.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">📣</div>
+        <div class="adv-text"><strong>Communication :</strong> partenaire officiel du Top14, plan média d’envergure pour promouvoir la marque et les services.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🏛️</div>
+        <div class="adv-text"><strong>Patrimoine :</strong> aucun apport pour débuter, organisation cessible et transmissible.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">📈</div>
+        <div class="adv-text"><strong>Actionnariat :</strong> possibilité de devenir actionnaire.</div>
+      </div>
+
+      <div class="adv-card">
+        <div class="adv-icon">🎓</div>
+        <div class="adv-text"><strong>Formation :</strong> 25 ateliers et formations en présentiel + 40 heures en ligne (certifié LOI ALUR).</div>
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+function formatInput(input){
+  let digits = input.value.replace(/\D/g,'');
+  if(digits === ''){ input.value=''; clearResults(); return; }
+  digits = digits.replace(/^0+/, '') || '0';
+  input.value = Number(digits).toLocaleString('fr-FR');
+  calculer();
+}
+
+function clearResults(){
+  document.getElementById('tranches').innerHTML = '';
+  document.getElementById('breakdown').style.display = 'none';
+  document.getElementById('totalPerçu').textContent = '';
+  document.getElementById('apresUrssaf').textContent = '';
+}
+
+function calculer(){
+  const inputVal = document.getElementById('commission').value || '';
+  const val = parseInt(inputVal.replace(/\s/g,''),10);
+  const tranchesDiv = document.getElementById('tranches');
+  const breakdown = document.getElementById('breakdown');
+
+  if(!val || val <= 0){
+    clearResults();
+    return;
+  }
+
+  breakdown.style.display = 'block';
+  tranchesDiv.innerHTML = '';
+
+  const tranches = [
+    {max:65000, taux:0.69, label:"0 → 65 000 (69%)"},
+    {max:80000, taux:0.75, label:"65 000 → 80 000 (75%)"},
+    {max:100000,taux:0.80, label:"80 000 → 100 000 (80%)"},
+    {max:Infinity,taux:0.85, label:"> 100 000 (85%)"}
+  ];
+
+  let remaining = val;
+  let totalPerçu = 0;
+  let last = 0;
+
+  for(const t of tranches){
+    if(remaining <= 0) break;
+    const base = Math.min(remaining, t.max - last);
+    const percu = Math.floor(base * t.taux);
+
+    const card = document.createElement('div');
+    card.className = 'tranche-card';
+    card.innerHTML = `<div><b>${t.label}</b></div><div style="margin-top:6px; font-weight:700;">${format(percu)}</div>`;
+    tranchesDiv.appendChild(card);
+
+    totalPerçu += percu;
+    remaining -= base;
+    last = t.max;
+  }
+
+  document.getElementById('totalPerçu').textContent = format(totalPerçu);
+  document.getElementById('apresUrssaf').textContent = format(Math.floor(totalPerçu * (1 - 0.261)));
+}
+
+function format(n){
+  return n.toLocaleString('fr-FR') + ' €';
+}
+</script>
+</body>
+</html>
